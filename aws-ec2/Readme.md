@@ -1,5 +1,7 @@
 # AWS EC2
 
+0. Create an instance on AWS using the Amazon Linux AMI
+
 1. SSH into the EC2 instance with the generated key pair
 ![SSH](https://github.com/user-attachments/assets/91675753-f734-42ac-8d79-7831e59be5ee)
 
