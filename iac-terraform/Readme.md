@@ -16,3 +16,5 @@ region = eu-central-1
 4. ```terraform apply``` will deploy the ```main.tf``` configuration to AWS, output public IP, and create new key file for SSH
 
 And now theres a EC2 instance deployed with Terraform!
+![Screenshot from 2025-04-01 22-43-52](https://github.com/user-attachments/assets/741caefc-22c5-418a-86be-067c195db15d)
+![Screenshot from 2025-04-01 23-06-59](https://github.com/user-attachments/assets/03e5fbb1-0911-4a99-bd21-b8ef1594d6ca)
