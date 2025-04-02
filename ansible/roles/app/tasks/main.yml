@@ -1,0 +1,15 @@
+- name: Upload website tarball
+  copy:
+    src: "{{ playbook_dir }}/website/website.tar.gz"
+    dest: /tmp/website.tar.gz
+
+- name: Extract website
+  unarchive:
+    src: /tmp/website.tar.gz
+    dest: /usr/share/nginx/html/
+    remote_src: yes
+
+- name: Remove the tarball after extraction
+  file:
+    path: /tmp/website.tar.gz
+    state: absent

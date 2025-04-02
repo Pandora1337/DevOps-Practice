@@ -1,0 +1,10 @@
+ - name: EC2 server
+   hosts: myhosts
+   # Run as root
+   become: true
+
+   # Functions to run
+   roles:
+    - base
+    - nginx
+    - app
