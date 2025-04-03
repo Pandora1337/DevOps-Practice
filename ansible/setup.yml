@@ -1,10 +1,13 @@
  - name: EC2 server
-   hosts: myhosts
+   hosts: all
    # Run as root
    become: true
 
    # Functions to run
    roles:
-    - base
-    - nginx
-    - app
+    - role: base
+      tags: base
+    - role: nginx
+      tags: nginx
+    - role: app
+      tags: app

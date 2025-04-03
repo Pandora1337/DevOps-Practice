@@ -1,8 +1,8 @@
-myhosts:
+all:
   hosts:
     my_host_1:
       # Here I use the IP from my Terraform deployment
       ansible_host: <EC2 PUBLIC IP>
       http_port: 80
       ansible_user: ec2-user
-      ansible_ssh_private_key_file: ../iac-terraform/NewKey.pem
+      ansible_ssh_private_key_file: testinstance.pem
