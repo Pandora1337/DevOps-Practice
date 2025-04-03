@@ -68,6 +68,17 @@ resource "local_file" "privatekey" {
   file_permission = "0400"
 }
 
+# Save to a file the populated template with instance data, for use with Ansible
+resource "local_file" "ansible_inventory" {
+  content = templatefile("tr_inventory.yml.tpl", {
+    instance_name = aws_instance.testinstance.tags["Name"]
+    instance_ip = aws_instance.testinstance.public_ip
+    instance_key = local_file.privatekey.filename
+  })
+  
+  filename = "tr_inventory.yml"
+}
+
 # Shows the public IP
 output "instance_ip" {
   value = aws_instance.testinstance.public_ip
