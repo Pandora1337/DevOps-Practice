@@ -2,13 +2,10 @@
 name: Deploy index.html content to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     paths:
       # Only run the workflow when this file is updated
       - 'gh-actions-deployment-workflow/index.html'
-    paths-ignore:
-      - '**/*'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
