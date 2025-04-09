@@ -11,5 +11,5 @@ Deploy action will only push the contents of `web`, and will be triggered after 
 4. Go to the repo link under https://<yourname>.github.io/<repo name> and see the website!
 
 ## Result
-The site is now accessible on [https://pandora1337.github.io/DevOps-Practice/pages-deployment/](https://pandora1337.github.io/DevOps-Practice/pages-deployment/)!
+The site is now accessible on [https://pandora1337.github.io/DevOps-Practice](https://pandora1337.github.io/DevOps-Practice)!
 
