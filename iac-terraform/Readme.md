@@ -21,8 +21,8 @@ And now theres a EC2 instance deployed with Terraform!
 ![Screenshot from 2025-04-01 22-43-52](https://github.com/user-attachments/assets/741caefc-22c5-418a-86be-067c195db15d)
 ![Screenshot from 2025-04-01 23-06-59](https://github.com/user-attachments/assets/03e5fbb1-0911-4a99-bd21-b8ef1594d6ca)
 
-5. (Optional) Generate new keys on instance deployment.
-Add the following code:
+5. (Optional) To use your own keys on instance deployment, instead of generating new ones.
+Remove the following code:
 ```
 # Creates new key on AWS
 resource "aws_key_pair" "testkey" {
@@ -43,13 +43,13 @@ resource "local_file" "privatekey" {
 }
 ```
 
-And modify ```testinstance``` and ```ansible_inventory``` resources to use the generated keyname and keyfile, like so:
+And modify ```testinstance``` and ```ansible_inventory``` resources to use your keyname and keyfile, like so:
 
 ```
 resource "aws_instance" "testinstance" {
   ami           = "ami-0bade3941f267d2b8"
   instance_type = "t2.micro"
-  key_name = aws_key_pair.testkey.key_name # <= Use new key name!
+  key_name = "your key name" # <= Use new key name here!
   vpc_security_group_ids = [aws_security_group.testgroup.id]
 
   tags = {
@@ -62,7 +62,7 @@ resource "local_file" "ansible_inventory" {
   content = templatefile("tr_inventory.yml.tpl", {
     instance_name = aws_instance.testinstance.tags["Name"]
     instance_ip = aws_instance.testinstance.public_ip
-    instance_key = local_file.privatekey.filename # <= Use new key filename!
+    instance_key = "your key filename" # <= Use new key filename here!
   })
   
   filename = "tr_inventory.yml"
