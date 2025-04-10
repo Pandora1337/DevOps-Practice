@@ -43,12 +43,6 @@ jobs:
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
           
-      - name: Deploy to server using rsync
-        run: |
-          rsync -avz --delete -e "ssh -i $SSH_KEY_PATH" ./nodejs-service-deployment/node_app ec2-user@${{ secrets.SSH_IP }}:~/app
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-          
       - name: Install dependencies
         run: npm install
         working-directory: ./nodejs-service-deployment/node_app
