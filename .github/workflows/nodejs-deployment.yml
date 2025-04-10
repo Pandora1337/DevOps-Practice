@@ -21,11 +21,19 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
-      
-      - name: Install dependencies
-        run: npm install
-        working-directory: ./nodejs-service-deployment/node_app
 
+      - name: Create SSH key
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$SSH_PRIVATE_KEY" > ../private.key
+          sudo chmod 600 ../private.key
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+        shell: bash
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_IP }}
+          SSH_KEY_PATH: ${{ github.workspace }}/../private.key
+          
       - name: Rsync Copy
         uses: tempersama/rsync-copy@2.6
         with:
@@ -35,10 +43,20 @@ jobs:
           username: ec2-user
           key: ${{ secrets.SSH_KEY }}
           
+      - name: Deploy to server using rsync
+        run: |
+          rsync -avz --delete -e "ssh -i $SSH_KEY_PATH" ./nodejs-service-deployment/node_app ec2-user@${{ secrets.SSH_IP }}:~/app
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+          
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./nodejs-service-deployment/node_app
+        
       - name: Run PM2 stop command
         run: |
-          ssh ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
+          ssh -i $SSH_KEY_PATH ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
           
       - name: Run PM2 start command
         run: |
-          ssh ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
+          ssh -i $SSH_KEY_PATH ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
