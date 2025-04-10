@@ -26,15 +26,14 @@ jobs:
         run: npm install
         working-directory: ./nodejs-service-deployment/node_app
 
-      - name: rsync deployment
-        uses: burnett01/rsync-deployments@7.0.2
+      - name: Rsync Copy
+        uses: tempersama/rsync-copy@2.6
         with:
-          switches: -avz --delete
-          path: ./nodejs-service-deployment/node_app
-          remote_path: "~/app"
-          remote_host: ${{ secrets.SSH_IP }}
-          remote_user: ec2-user
-          remote_key: ${{ secrets.SSH_KEY }}
+          host: ${{ secrets.SSH_IP }}
+          source: ./nodejs-service-deployment/node_app
+          destination: "~/app"
+          username: ec2-user
+          key: ${{ secrets.SSH_KEY }}
           
       - name: Run PM2 stop command
         run: |
