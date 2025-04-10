@@ -28,14 +28,14 @@ jobs:
 
       - name: Deploy to server using rsync
         run: |
-          rsync -avz --delete ./ ec2-user@${{ secrets.SSH_IP }}:~/app
+          rsync -avz --delete ./nodejs-service-deployment/node_app ec2-user@${{ secrets.SSH_IP }}:~/app
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
       
       - name: Run PM2 stop command
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
+          ssh ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
           
       - name: Run PM2 start command
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
+          ssh ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
