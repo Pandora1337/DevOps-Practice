@@ -14,29 +14,27 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Step 2: Set up SSH
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
         with:
           ssh-private-key: ${{ secrets.SSH_KEY }}
       
-      # Step 3: Install Node.js (optional, if your server doesn't have it already)
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '18'  # or any version you're using
-
-      # Step 4: Install dependencies (optional, if required)
       - name: Install dependencies
         run: npm install
 
-      # Step 5: Rsync the app to the server
       - name: Deploy to server using rsync
         run: |
-          rsync -avz --delete ./ ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/opt/app
+          rsync -avz --delete ./ ec2-user@${{ secrets.SSH_IP }}:~/app
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
+      
+      - name: Run PM2 stop command
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
+          
+      - name: Run PM2 start command
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
