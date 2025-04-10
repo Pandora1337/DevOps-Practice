@@ -34,7 +34,7 @@ jobs:
           remote_path: "~/app"
           remote_host: ${{ secrets.SSH_IP }}
           remote_user: ec2-user
-          remote_key: ${{ secrets.DEPLOY_KEY }}
+          remote_key: ${{ secrets.SSH_KEY }}
           
       - name: Run PM2 stop command
         run: |
