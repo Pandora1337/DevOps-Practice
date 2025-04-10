@@ -26,12 +26,16 @@ jobs:
         run: npm install
         working-directory: ./nodejs-service-deployment/node_app
 
-      - name: Deploy to server using rsync
-        run: |
-          rsync -avz --delete ./nodejs-service-deployment/node_app ec2-user@${{ secrets.SSH_IP }}:~/app
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_KEY }}
-      
+      - name: rsync deployment
+        uses: burnett01/rsync-deployments@7.0.2
+        with:
+          switches: -avz --delete
+          path: ./nodejs-service-deployment/node_app
+          remote_path: "~/app"
+          remote_host: ${{ secrets.SSH_IP }}
+          remote_user: ec2-user
+          remote_key: ${{ secrets.DEPLOY_KEY }}
+          
       - name: Run PM2 stop command
         run: |
           ssh ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
