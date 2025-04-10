@@ -47,10 +47,20 @@ jobs:
         run: npm install
         working-directory: ./nodejs-service-deployment/node_app
         
-      - name: Run PM2 stop command
-        run: |
-          ssh -i $SSH_KEY_PATH ec2-user@${{ secrets.SSH_IP }} "pm2 stop all"
+      - name: Run pm2 stop
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ec2-user
+          password: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: pm2 stop all
           
-      - name: Run PM2 start command
-        run: |
-          ssh -i $SSH_KEY_PATH ec2-user@${{ secrets.SSH_IP }} "cd ~/app && pm2 start index.js --name 'app'"
+      - name: Run pm2 start
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.SSH_IP }}
+          username: ec2-user
+          password: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: cd ~/app && pm2 start index.js --name 'app'
