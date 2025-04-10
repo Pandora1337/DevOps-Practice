@@ -1,0 +1,13 @@
+ - name: Node.js App
+   hosts: all
+   # Run as root
+   become: true
+   vars:
+      app_dir: /home/ec2-user/app
+
+   # Functions to run
+   roles:
+    - role: base
+      tags: base
+    - role: app
+      tags: app
