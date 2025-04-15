@@ -32,5 +32,21 @@ Download `docker-compose.yml` and run `docker-compose up -d`
 ## Result
 
 Now the services are reachable on `http://localhost:3001/info` (with port `3002` for `service-b`, `3003` for `service-c`, etc) and via a gateway: `http://localhost:3000/service-a/info`.
+Consul can also see all the services, and their API status
 
-Consul can also see all the services, and their api status
+Docker containers with compose:
+
+![docker](https://github.com/user-attachments/assets/a9da00ad-90dc-42d8-9eeb-54f8a46e27ea)
+
+Consul dashboard showing service API status:
+
+![consul-2](https://github.com/user-attachments/assets/59b0dca5-692b-4d9d-a907-862e0a3bb1ec)
+
+Service endpoint:
+
+![service](https://github.com/user-attachments/assets/5f6a7ac2-3b2c-4f5e-a0e2-fc6c81218eca)
+
+Service endpoints through a gateway:
+
+![gateway-2](https://github.com/user-attachments/assets/459e2c33-cf65-4d5b-81d8-363b87383616)
+![gateway](https://github.com/user-attachments/assets/eb9e1646-d706-4ab1-a870-600dd6c07856)
