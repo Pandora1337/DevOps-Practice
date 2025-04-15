@@ -1,0 +1,87 @@
+version: '3.7'
+services:
+  consul:
+    image: hashicorp/consul:latest
+    container_name: nodejs-consul
+    ports:
+      - 8500:8500
+      - 8600:8600/udp
+    command: agent -dev -client=0.0.0.0
+    networks:
+      - app-network
+
+  gateway:
+    image: pandora1337/nodejs-service:latest
+    container_name: nodejs-gateway
+    ports:
+      - 3000:3000
+    environment:
+      - CONSUL_IP=nodejs-consul
+      - CONSUL_PORT=8500
+    #  - PORT=3000
+    command: npm run start:gateway
+    depends_on: 
+      - consul
+      - service-a
+      - service-b
+      - service-c
+    networks:
+      - app-network
+    
+  service-a:
+    image: pandora1337/nodejs-service:latest
+    container_name: nodejs-service-a
+    ports:
+      - 3001:3000
+    environment:
+      - CONSUL_IP=nodejs-consul
+      - CONSUL_PORT=8500
+      - SERVICE_NAME=service-a
+      - SERVICE_IP=service-a
+    #  - PORT=3000
+      - POLL_INTERVAL=1s  # For Consul healthcheck
+    command: npm run start:service
+    depends_on: 
+      - consul
+    networks:
+      - app-network
+    
+  service-b:
+    image: pandora1337/nodejs-service:latest
+    container_name: nodejs-service-b
+    ports:
+      - 3002:3000
+    environment:
+      - CONSUL_IP=nodejs-consul
+      - CONSUL_PORT=8500
+      - SERVICE_NAME=service-b
+      - SERVICE_IP=service-b
+    #  - PORT=3000
+      - POLL_INTERVAL=1s  # For Consul healthcheck
+    command: npm run start:service
+    depends_on: 
+      - consul
+    networks:
+      - app-network
+    
+  service-c:
+    image: pandora1337/nodejs-service:latest
+    container_name: nodejs-service-c
+    ports:
+      - 3003:3000
+    environment:
+      - CONSUL_IP=nodejs-consul
+      - CONSUL_PORT=8500
+      - SERVICE_NAME=service-c
+      - SERVICE_IP=service-c
+    #  - PORT=3000
+      - POLL_INTERVAL=1s  # For Consul healthcheck
+    command: npm run start:service
+    depends_on: 
+      - consul
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

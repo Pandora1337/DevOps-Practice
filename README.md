@@ -10,3 +10,4 @@ This repository contains my solutions and work for various DevOps projects
 - [IaC With Terraform](https://roadmap.sh/projects/iac-digitalocean) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/iac-terraform)
 - [Configuration Management with Ansible](https://roadmap.sh/projects/configuration-management) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/ansible)
 - [Node.js Service Deployment](https://roadmap.sh/projects/nodejs-service-deployment) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/nodejs-service-deployment)
+- [Service Discovery with Consul](https://roadmap.sh/projects/service-discovery) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/service-discovery)
