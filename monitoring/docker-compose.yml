@@ -28,7 +28,32 @@ services:
       - ${DATA_FOLDER}/grafana:/var/lib/grafana
     links:
       - prometheus:prometheus
+      - loki:loki
     user: "${UID}:${GID}"
+
+  loki:
+    image: grafana/loki:latest
+    container_name: monitor-loki
+    restart: unless-stopped
+    volumes:
+      - ${DATA_FOLDER}/loki:/etc/loki
+    command: "--config.file=/etc/loki/loki-config.yml"
+    # ports:
+    #   - 3100:3100
+    user: "${UID}:${GID}"
+    
+  promtail:
+    image: grafana/promtail:latest
+    container_name: monitor-promtail
+    volumes:
+      - /var/log:/var/log
+      - ${DATA_FOLDER}/promtail:/etc/promtail
+    # ports:
+    #   - "1514:1514" # this is only needed if you are going to send syslogs
+    restart: unless-stopped
+    command: "--config.file=/etc/promtail/promtail-config.yml"
+    links:
+      - loki:loki
 
   node-exporter:
     image: prom/node-exporter:latest
