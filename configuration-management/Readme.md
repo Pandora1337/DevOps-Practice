@@ -1,4 +1,4 @@
-# EC2 Configuration with Ansible
+# Configuration of NGINX website with Ansible
 
 ## Prerequisites
 
