@@ -42,17 +42,15 @@ app.get('/todos', async (req, res) => {
 
 // Get the last 5 todos
 app.get('/todos/last', async (req, res) => {
-    const todos = await Todo.find()
-        .sort({ _id: -1 })
-        .limit(5)
-        .exec((err, entries) => {
-            if (err) {
-                console.error(err);
-            } else {
-                console.log(entries);
-            }
-        });
-    res.json(todos)
+    try {
+        const todos = await Todo.find()
+            .sort({ _id: -1 })
+            .limit(5)
+        res.json(todos)
+    } catch (err) {
+        res.status(422).json({ error: "Command failed!" })
+        return
+    }
 });
 
 // Add new todo
