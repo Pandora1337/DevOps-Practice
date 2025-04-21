@@ -7,6 +7,8 @@ When a new Todo is created, MongoDB assigns unique `_id` all on its own.
 ```
 GET http://<IP>/todos # Get all todos
 
+GET http://<IP>/todos/last # Get last 5 todos
+
 POST http://<IP>/todos # Post a new todo in JSON format
 
 GET http://<IP>/todos/<ID> # Get a specific todo by ID

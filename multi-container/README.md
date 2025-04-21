@@ -56,12 +56,18 @@ and if you want to update `docker-compose.yml`:
 ```
 ansible-playbook -i ../iac-terraform/tr_inventory.yml ansible/docker_setup.yml --tags app
 ```
-4. Any changes to this repository will be included in a docker image and pushed automatically
+4. Any changes to this repository will be included in a docker image and pushed automatically using this [workflow](https://github.com/Pandora1337/DevOps-Practice/blob/main/.github/workflows/multi-container-application.yml)
 
 ## Result:
 
 Now you can perform GET, PUT, POST, and DElETE API requests to the server running the container and database, ripe for a nice frontend! *wink wink*
 See all possible API requests [here](https://github.com/Pandora1337/DevOps-Practice/tree/main/multi-container/api)
+
+After I implemented new API feature and pushed it to GitHub, the Action build, pushed and updated Docker image on the server. An excellent example of CI/CD:
+
+From:
+
+To:
 
 ## Explanations
 ### Github Workflow
