@@ -40,6 +40,21 @@ app.get('/todos', async (req, res) => {
     res.json(todos)
 });
 
+// Get the last 5 todos
+app.get('/todos/last', async (req, res) => {
+    const todos = await Todo.find()
+        .sort({ _id: -1 })
+        .limit(5)
+        .exec((err, entries) => {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log(entries);
+            }
+        });
+    res.json(todos)
+});
+
 // Add new todo
 app.post('/todos', async (req, res) => {
     const todo = new Todo(req.body)
