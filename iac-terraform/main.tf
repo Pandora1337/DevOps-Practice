@@ -41,7 +41,7 @@ resource "aws_security_group" "testgroup" {
 }
 
 resource "aws_instance" "testinstance" {
-  ami           = "ami-0bade3941f267d2b8"
+  ami           = "ami-0d8d11821a1c1678b"
   instance_type = "t2.micro"
   key_name = aws_key_pair.testkey.key_name # <= Use new key name!
   vpc_security_group_ids = [aws_security_group.testgroup.id]
