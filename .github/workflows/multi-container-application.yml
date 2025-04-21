@@ -25,7 +25,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./multi-container/api/*
+          context: ./multi-container/api
           push: true
           tags: pandora1337/todo-api:latest
           
