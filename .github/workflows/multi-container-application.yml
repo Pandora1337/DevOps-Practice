@@ -36,7 +36,12 @@ jobs:
         uses: webfactory/ssh-agent@v0.9.0
         with:
             ssh-private-key: ${{ secrets.SSH_KEY }}
-          
+
+      # Add host to known hosts
+      - run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -H ${{ secrets.SSH_IP }} >> ~/.ssh/known_hosts
+
       - name: Copy docker-compose.yml
         run: |
           rsync -avz ./multi-container/docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/${{ secrets.SSH_USER }}/app
