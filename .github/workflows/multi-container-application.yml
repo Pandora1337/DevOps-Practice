@@ -44,7 +44,7 @@ jobs:
 
       - name: Copy docker-compose.yml
         run: |
-          rsync -avz ./multi-container/docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/home/${{ secrets.SSH_USER }}/app
+          rsync -avz ./multi-container/docker-compose.yml ${{ secrets.SSH_USER }}@${{ secrets.SSH_IP }}:/home/${{ secrets.SSH_USER }}/app
         
       - name: Run docker-compose.yml
         uses: appleboy/ssh-action@v1
