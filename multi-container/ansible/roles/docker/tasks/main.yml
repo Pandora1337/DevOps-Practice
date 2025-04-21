@@ -1,0 +1,35 @@
+- name: Install dependencies
+  yum:
+    name:
+      - yum-utils
+      - device-mapper-persistent-data
+      - lvm2
+    state: present
+  become: yes
+
+- name: Install Docker
+  yum:
+    name: docker
+    state: present
+  become: yes
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes
+  become: yes
+
+- name: Download Docker Compose
+  get_url:
+    url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system | lower }}-x86_64"
+    dest: "/usr/local/bin/docker-compose"
+    mode: 'u+x'
+  become: yes
+
+- name: Add ec2-user to Docker group
+  user:
+    name: ec2-user
+    groups: docker
+    append: yes
+  become: yes

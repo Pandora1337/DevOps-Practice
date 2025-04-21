@@ -12,3 +12,4 @@ This repository contains my solutions and work for various DevOps projects
 - [Node.js Service Deployment](https://roadmap.sh/projects/nodejs-service-deployment) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/nodejs-service-deployment)
 - [Service Discovery with Consul](https://roadmap.sh/projects/service-discovery) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/service-discovery)
 - [Monitoring with Prometheus and Grafana](https://roadmap.sh/projects/monitoring) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/monitoring)
+- [Multi-container Application](https://roadmap.sh/projects/multi-container-service) and [my solution](https://github.com/Pandora1337/DevOps-Practice/tree/main/multi-container)

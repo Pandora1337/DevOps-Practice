@@ -1,0 +1,37 @@
+version: '3.3'
+services:
+    mongo:
+        image: mongo
+        container_name: multi-mongo
+        restart: unless-stopped
+        ports:
+            - '27017:27017'
+        environment:
+            - MONGO_INITDB_ROOT_USERNAME=admin # Example, use secrets or .env!
+            - MONGO_INITDB_ROOT_PASSWORD=admin # Example, use secrets or .env!
+        volumes:
+            - mongo-data:/data/db
+        networks:
+          - app-network
+
+    api:
+      image: pandora1337/todo-api:latest
+      container_name: multi-api
+      ports:
+        - 80:3000
+      environment:
+       - IP=localhost
+      #  - PORT=3000
+       - DB_IP=mongo
+      #  - DB_PORT=27017
+       - DB_USER=admin # Example, use secrets or .env!
+       - DB_PASS=admin # Example, use secrets or .env!
+      networks:
+        - app-network
+
+volumes:
+  mongo-data:
+
+networks:
+  app-network:
+    driver: bridge

@@ -1,0 +1,16 @@
+ - name: Docker Install
+   hosts: all
+   # Run as root
+   become: true
+   vars:
+      app_dir: /home/ec2-user/app
+      docker_compose_version: "v2.35.1"
+
+   # Functions to run
+   roles:
+    - role: base
+      tags: base
+    - role: docker
+      tags: docker
+    - role: app
+      tags: app
