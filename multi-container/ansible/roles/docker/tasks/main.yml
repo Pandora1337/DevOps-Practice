@@ -40,3 +40,11 @@
     groups: docker
     append: yes
   become: yes
+
+- name: Ensure the app directory exists
+  ansible.builtin.file:
+    path: "{{ app_dir }}"
+    state: directory
+    owner: ec2-user
+    group: ec2-user
+    mode: '0755'
