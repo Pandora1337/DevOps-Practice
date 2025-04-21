@@ -24,7 +24,14 @@
   get_url:
     url: "https://github.com/docker/compose/releases/download/{{ docker_compose_version }}/docker-compose-{{ ansible_system | lower }}-x86_64"
     dest: "/usr/local/bin/docker-compose"
-    mode: 'u+x'
+  become: yes
+
+- name: Change group of docker-compose to docker
+  command: chgrp docker /usr/local/bin/docker-compose
+  become: yes
+
+- name: Add execute permissions for group
+  command: chmod g+x /usr/local/bin/docker-compose
   become: yes
 
 - name: Add ec2-user to Docker group
