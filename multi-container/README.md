@@ -61,13 +61,18 @@ ansible-playbook -i ../iac-terraform/tr_inventory.yml ansible/docker_setup.yml -
 ## Result:
 
 Now you can perform GET, PUT, POST, and DElETE API requests to the server running the container and database, ripe for a nice frontend! *wink wink*
+
 See all possible API requests [here](https://github.com/Pandora1337/DevOps-Practice/tree/main/multi-container/api)
 
-After I implemented new API feature and pushed it to GitHub, the Action build, pushed and updated Docker image on the server. An excellent example of CI/CD:
+After I implemented new API feature and pushed it to GitHub, the Action build, pushed and updated Docker image on the server. An excellent example of CI/CD!
+
+I used `http://<IP>/todos/last` in both pictures, before and after I pushed *only* the new code.
 
 From:
+![api_error](https://github.com/user-attachments/assets/38809316-b0d3-499a-8a1d-19f07e8c1fcf)
 
 To:
+![api_ok](https://github.com/user-attachments/assets/25aa8c14-b4ff-4a24-8510-a4a3dd094c2a)
 
 ## Explanations
 ### Github Workflow
